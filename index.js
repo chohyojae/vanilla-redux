@@ -10,7 +10,7 @@ const INCREASE = 'INCREASE';
 const DECREASE = 'DECREASE';
 
 const toggleSwitch = () => ({ type: TOGGLE_SWITCH });
-const increase = (difference) => ({ type: INCREASE, difference });
+const increase = (countNum) => ({ type: INCREASE, countNum });
 const decrease = () => ({ type: DECREASE });
 
 const initialState = {
@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
     case TOGGLE_SWITCH:
       return { ...state, toggle: !state.toggle };
     case INCREASE:
-      return { ...state, counter: state.counter + 1 };
+      return { ...state, counter: state.counter + action.countNum };
     case DECREASE:
       return { ...state, counter: state.counter - 1 };
     default:
@@ -43,3 +43,16 @@ const render = () => {
 };
 
 render();
+store.subscribe(render);
+
+divToggle.onclick = () => {
+  store.dispatch(toggleSwitch());
+};
+
+btnIncrease.onclick = () => {
+  store.dispatch(increase(1));
+};
+
+btnDecrease.onclick = () => {
+  store.dispatch(decrease());
+};
